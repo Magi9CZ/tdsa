@@ -1,5 +1,7 @@
-const {MongoClient} = require('mongodb')
+const {MongoClient} = require('mongodb');
+const express = require('express');
 
+const app = express();
 
 
 async function main(){
@@ -48,11 +50,7 @@ async function findCat(client, findingValue){
 app.get("/database", function(req, res) {
     res.send(selected);
 });
-let port = process.env.PORT;
-if(port == null || port == "") {
-    port = 5000;
-}
-app.listen(port, function() {
+app.listen(process.env.PORT, function() {
     console.log("Server started successfully");
 });
 

@@ -11,19 +11,9 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/', {
-      method: 'GET',
-      withCredentials: true,
-      crossorigin: true,
-      mode: 'no-cors',
-    })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      fetch("/database")
+          .then(response => response.json())
+          .then(data => console.log(data));
   },[]);
 
 
