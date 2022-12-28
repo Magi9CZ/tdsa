@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 
 
+
 async function main(){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
@@ -20,7 +21,8 @@ async function main(){
 
         // Make the appropriate DB calls
         await  listDatabases(client);
-        await  findCat(client, "kočka");
+        await pickTen(client);
+        //await  findCat(client, "kočka");
 
     } catch (e) {
         console.error(e);
@@ -39,19 +41,33 @@ async function listDatabases(client){
 
 let selected = [];
 
+async function pickTen(client){
+    selected = await client.db("hra").collection("animals").aggregate([{$sample: {size: 6}}]).toArray();
+}
+
+
 async function findCat(client, findingValue){
 
     selected = [await client.db("hra").collection("animals").findOne({name: findingValue}), await client.db("hra").collection("animals").findOne({name: "pes"})];
 
-
-    console.log(selected[1].photo);
 }
 
 app.get("/database", function(req, res) {
+
+    res.set({
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true
+    });
+
     res.send(selected);
 });
-app.listen(process.env.PORT, function() {
+
+
+let port = 4000;
+
+app.listen(port, function() {
     console.log("Server started successfully");
+    console.log(port);
 });
 
 main().catch(console.error);
