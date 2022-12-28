@@ -89,7 +89,7 @@ function App() {
           <div style={viewGame}>
               <button type={"submit"} onClick={nextQuestion}>Další otázka</button>
               <button type={"submit"} onClick={showItems}>otázka</button>
-              <Otazka photo={currentPhoto} name={items[cisloOtazky].name} qNumber={cisloOtazky} onNextQuestion={storeData}/>
+              <Otazka photo={currentPhoto}  qNumber={cisloOtazky} onNextQuestion={storeData}/>
               <button onClick={odpovedi}>Odpovědi</button>
           </div>
       </div>
