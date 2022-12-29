@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import React from "react";
 import Otazka from "./Client/Otazka";
 import VyberRole from "./Client/VyberRole";
+import {checkNode} from "@testing-library/jest-dom/dist/utils";
 
 
 function App() {
@@ -12,14 +13,25 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(true);
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const [testID, setTestID] = useState();
+  const [isPressed, setIsPressed] = useState(false);
+  const [mode, setMode] = useState();
 
 
+function loadAnimals() {
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/database`)
+        fetch(`http://localhost:4000/animals`)
             .then(response => response.json()).then(data => gameItems(data));
-    }, [1]);
+setIsPressed(true);
+setMode("Animals");
+}
+
+function loadFlowers() {
+
+            fetch(`http://localhost:4000/flowers`)
+                .then(response => response.json()).then(data => gameItems(data));
+    setIsPressed(true);
+    setMode("Flowers");
+}
 
     function gameItems(data) {
         if (items == null) {
@@ -69,7 +81,7 @@ function App() {
     let viewSettings = {};
     let viewGame = {};
 
-    if (testID == null) {
+    if (isPressed === false) {
         viewGame.display = "none";
         viewSettings.display = "block";
     } else {
@@ -77,19 +89,21 @@ function App() {
         viewSettings.display = "none";
     }
 
-    function testCode(code) {
-        setTestID(code);
-    }
 
   return (
       <div className="App">
          <div style={viewSettings}>
-             <VyberRole handleTest={testCode}/>
+             <button onClick={loadAnimals}>Zvířata</button>
+             <button onClick={loadFlowers}>Kytky</button>
          </div>
+
           <div style={viewGame}>
               <button type={"submit"} onClick={nextQuestion}>Další otázka</button>
               <button type={"submit"} onClick={showItems}>otázka</button>
-              <Otazka photo={currentPhoto}  qNumber={cisloOtazky} onNextQuestion={storeData}/>
+              {items != null &&
+                  <Otazka mode={mode} photo={currentPhoto} name={items[cisloOtazky].name} qNumber={cisloOtazky}
+                          onNextQuestion={storeData}/>
+              }
               <button onClick={odpovedi}>Odpovědi</button>
           </div>
       </div>

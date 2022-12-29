@@ -21,7 +21,8 @@ async function main(){
 
         // Make the appropriate DB calls
         await  listDatabases(client);
-        await pickTen(client);
+        await pickTenAnimals(client);
+        await pickTenFlowers(client);
         //await  findCat(client, "kočka");
 
     } catch (e) {
@@ -39,10 +40,16 @@ async function listDatabases(client){
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 }
 
-let selected = [];
+let selectedAnimals = [];
 
-async function pickTen(client){
-    selected = await client.db("hra").collection("animals").aggregate([{$sample: {size: 6}}]).toArray();
+async function pickTenAnimals(client){
+    selectedAnimals = await client.db("hra").collection("animals").aggregate([{$sample: {size: 6}}]).toArray();
+}
+
+let selectedFlowers = [];
+
+async function pickTenFlowers(client){
+    selectedFlowers = await client.db("hra").collection("flowers").aggregate([{$sample: {size: 6}}]).toArray();
 }
 
 
@@ -52,14 +59,24 @@ async function findCat(client, findingValue){
 
 }
 
-app.get("/database", function(req, res) {
+app.get("/animals", function(req, res) {
 
     res.set({
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Credentials" : true
     });
 
-    res.send(selected);
+    res.send(selectedAnimals);
+});
+
+app.get("/flowers", function(req, res) {
+
+    res.set({
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true
+    });
+
+    res.send(selectedFlowers);
 });
 
 
