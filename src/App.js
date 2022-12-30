@@ -67,19 +67,29 @@ function loadFlowers() {
     }
 
     let currentPhoto = showPhoto(cisloOtazky);
+    const [body, setBody] = useState(0);
 
     function storeData(data) {
         setAnswers(prevItems => [
             ...prevItems, data
         ]);
+        if (data.odpoved === true){
+            let newBody = body + 1;
+            setBody(newBody);
+        }
+        nextQuestion();
     }
 
     function odpovedi() {
         console.log(answers);
+        console.log(body);
     }
 
     let viewSettings = {};
     let viewGame = {};
+    let viewScore = {};
+
+
 
     if (isPressed === false) {
         viewGame.display = "none";
@@ -97,14 +107,16 @@ function loadFlowers() {
              <button onClick={loadFlowers}>Kytky</button>
          </div>
 
-          <div style={viewGame}>
-              <button type={"submit"} onClick={nextQuestion}>Další otázka</button>
-              <button type={"submit"} onClick={showItems}>otázka</button>
-              {items != null &&
-                  <Otazka mode={mode} photo={currentPhoto} name={items[cisloOtazky].name} qNumber={cisloOtazky}
-                          onNextQuestion={storeData}/>
-              }
-              <button onClick={odpovedi}>Odpovědi</button>
+              <div style={viewGame}>
+                  {items != null &&
+                      <Otazka mode={mode} photo={currentPhoto} name={items[cisloOtazky].name} qNumber={cisloOtazky}
+                              onNextQuestion={storeData}/>
+                  }
+                  <br/>
+              </div>
+          <div style={viewScore}>
+              <h1>Počet správných odpovědí: </h1>
+              <h2>{body}</h2>
           </div>
       </div>
   );

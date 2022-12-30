@@ -36,9 +36,21 @@ function Otazka(props) {
     }
 
     function saveAnswer() {
+
+        let odpoved;
+
+        if (pickedName == props.name){
+            alert("Správně");
+            odpoved = true;
+        } else {
+            alert("špatně!");
+            odpoved = false;
+        }
+
         const data = {
             name: pickedName,
-            qNumber: qNumber
+            qNumber: qNumber,
+            odpoved: odpoved
         }
         props.onNextQuestion(data);
     }
@@ -47,38 +59,15 @@ function Otazka(props) {
         setPickedName(e.target.value);
     }
 
-    const [optOne, setOptOne] = useState();
-    const [optTwo, setOptTwo] = useState();
 
-
-    function pickOptionOne() {
-        if (props.mode == "Animals"){
-            let nuAni = Math.floor(Math.random() * 10);
-            let optName = animals[nuAni].name;
-            if (optName !== props.name) {
-                setOptOne(optName);
-            } else {
-                nuAni++;
-                setOptOne(optName);
-            }
-
-        }
-    }
 
     return(
         <div>
             <img className={"img-center"} src={props.photo}/>
             <br/>
-            <input type={"checkbox"} value={props.name} onChange={handleName}/>
-            <label>{props.name}</label>
-            <br/>
-            <input type={"checkbox"} value={props.name}/>
-            <label>{optOne}</label>
-            <br/>
-            <input type={"checkbox"} value={props.name}/>
-            <label>{optTwo}</label>
-            <br/>
-            <button type={"submit"} onClick={saveAnswer}>Uložit odpověď</button>
+            <h1>Co je na obrázku ?</h1>
+            <input type={"text"} onChange={handleName}/>
+            <button type={"submit"} onClick={saveAnswer}>Odpovědět</button>
         </div>
     );
 }
