@@ -10,8 +10,6 @@ import {checkNode} from "@testing-library/jest-dom/dist/utils";
 function App() {
 
   const [items, setItems] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [error, setError] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [isPressed, setIsPressed] = useState(false);
   const [mode, setMode] = useState();
@@ -64,7 +62,7 @@ function loadFlowers() {
 
     function nextQuestion(){
         let nove = cisloOtazky + 1;
-        return setCisloOtazky(nove);
+        setCisloOtazky(nove);
     }
 
     let currentPhoto = showPhoto(cisloOtazky);
@@ -101,16 +99,19 @@ function loadFlowers() {
     }
 
 
+
   return (
       <div className="App">
          <div style={viewSettings}>
              <button className={"button-36"} onClick={loadAnimals}>Zvířata</button>
              <button className={"button-36"} onClick={loadFlowers}>Kytky</button>
          </div>
-
               <div style={viewGame}>
-                  {items != null &&
-                      <Otazka mode={mode} photo={currentPhoto} name={items[cisloOtazky].name} qNumber={cisloOtazky}
+                  {items != null && items[cisloOtazky] != null &&
+                      <Otazka mode={mode}
+                              photo={currentPhoto}
+                              name={items[cisloOtazky].name}
+                              qNumber={cisloOtazky}
                               onNextQuestion={storeData}/>
                   }
                   <br/>
