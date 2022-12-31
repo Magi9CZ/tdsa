@@ -1,3 +1,15 @@
+Projekt funguje pouze na localhostu, protože nevím, jak to zprovoznit na serveru.
+Nezjistil jsem, jak z frontendu posílat cokoliv na backend, proto jsem musel projekt výrazně zjednodušit.
+
+Uživatel si může tedy vybrat pouze ze dvou kategorií, kde se mu poté vybere náhodných 10 obrázků.
+Uživatel zadává názvy do inputu a pokud je odpověď správná přičte se bod.
+K odpovězeným obrázkům se nelze vrátit.
+
+Pro vygenerování nových obrázků je nutné zrestartovat soubor dataload.js (**`node dataload.js`**) což jsem nezjistil jak se na serveru udělá.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
