@@ -43,13 +43,13 @@ async function listDatabases(client){
 let selectedAnimals = [];
 
 async function pickTenAnimals(client){
-    selectedAnimals = await client.db("hra").collection("animals").aggregate([{$sample: {size: 6}}]).toArray();
+    selectedAnimals = await client.db("hra").collection("animals").aggregate([{$sample: {size: 10}}]).toArray();
 }
 
 let selectedFlowers = [];
 
 async function pickTenFlowers(client){
-    selectedFlowers = await client.db("hra").collection("flowers").aggregate([{$sample: {size: 6}}]).toArray();
+    selectedFlowers = await client.db("hra").collection("flowers").aggregate([{$sample: {size: 10}}]).toArray();
 }
 
 

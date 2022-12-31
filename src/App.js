@@ -17,6 +17,7 @@ function App() {
   const [mode, setMode] = useState();
 
 
+
 function loadAnimals() {
 
         fetch(`http://localhost:4000/animals`)
@@ -103,8 +104,8 @@ function loadFlowers() {
   return (
       <div className="App">
          <div style={viewSettings}>
-             <button onClick={loadAnimals}>Zvířata</button>
-             <button onClick={loadFlowers}>Kytky</button>
+             <button className={"button-36"} onClick={loadAnimals}>Zvířata</button>
+             <button className={"button-36"} onClick={loadFlowers}>Kytky</button>
          </div>
 
               <div style={viewGame}>
@@ -125,3 +126,4 @@ function loadFlowers() {
 
 
 export default App;
+

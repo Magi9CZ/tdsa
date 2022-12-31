@@ -67,7 +67,7 @@ function Otazka(props) {
             <br/>
             <h1>Co je na obrázku ?</h1>
             <input type={"text"} onChange={handleName}/>
-            <button type={"submit"} onClick={saveAnswer}>Odpovědět</button>
+            <button className={"button-34"} type={"submit"} onClick={saveAnswer}>Odpovědět</button>
         </div>
     );
 }
